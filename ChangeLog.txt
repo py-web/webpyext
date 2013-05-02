@@ -5,3 +5,7 @@
 ## 2013-03-28
 
 * Use requests(for APIClient).
+
+## 2013-05-02
+
+* Deploy to bitbucket

@@ -6,7 +6,6 @@ Some extensions for web.py application.
 
 1. base web handler
 1. identity
-1. RESTful handler
 1. REST API base object
 
 ## MultiAuth
