@@ -1,0 +1,17 @@
+$def with (user, current_url)
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Please login</title>
+</head>
+<body>
+<p>Hello!</p>
+<p>
+$if user:
+    <script>window.location = "/profile";</script>
+$else:
+    <a href="/login?redirect=$current_url">Login by google account</a>
+</p>
+</body>
+</html>
