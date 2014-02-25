@@ -11,7 +11,7 @@ import web
 from web.contrib.template import render_mako
 
 from common.common import DataRow
-from webcommon import WebBasehandler
+from webcommon import WebBaseHandler
 
 import logging
 

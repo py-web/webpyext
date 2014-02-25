@@ -58,6 +58,7 @@ class WebInternalError(WebError):
 
 class WebBaseHandler:
     url_base  = '/'
+    url_login = 'login'
 
     def json_render(self, page, data):
         try:

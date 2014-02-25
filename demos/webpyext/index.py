@@ -17,8 +17,9 @@ logger = logging.getLogger(__name__)
 
 import web
 
-from webpyext.utils import DataRow
-from webpyext.webbase import WebBaseHandler, init_session, expose, get_identity
+from webpyext.common.common import DataRow
+from webpyext.webcommon import expose
+from webpyext.webserver import HtmlBaseHandler, init_session
 from webpyext import identity
 
 web.config.debug = False
@@ -47,6 +48,7 @@ class DBProvider(identity.IDProvider):
 
 def init_provider(session, fnauth=None):
     def wrapper(handler):
+        web.ctx.provider = DBProvider(session, fnauth)
         try:
             return handler()
         except web.HTTPError:
@@ -62,9 +64,8 @@ session = init_session(app)
 app.add_processor(init_provider(session))
 
 
-class BaseHandler(WebBaseHandler):
+class BaseHandler(HtmlBaseHandler):
     templates_path = os.path.join(os.path.dirname(__file__), 'templates').replace('\\', '/')
-    url_base = ""
 
 
 class index(BaseHandler):
@@ -91,16 +92,16 @@ class profile(BaseHandler):
     @expose("profile")
     @identity.require_login()
     def GET(self):
-        return dict(user=get_identity().user)
+        return dict(user=self.get_identity().user)
 
 
 class userinfo(BaseHandler):
 #    @expose(format="json")
     def GET(self):
-        return dict(user=get_identity().user)
+        return dict(user=self.get_identity().user)
 
 
-from webpyext.logger import initLogger
+from webpyext.common.config import initLogger
 
 initLogger({}, 'web')
 
